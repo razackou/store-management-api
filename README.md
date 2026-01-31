@@ -110,7 +110,7 @@ The main entities are:
 
 Below is a **diagram of the database schema (MCD/MLD)**
 
-![Model Conceptuel de Donees](/assets/images/mcd.png)
+![Model Conceptuel de Donees](./mcd.png)
 
 ---
 
