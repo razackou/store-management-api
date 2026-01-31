@@ -1,2 +1,297 @@
-# store-management-api
-Enterprise-grade Store Management API designed with a data-driven (MERISE) approach, showcasing backend architecture, business rules, and cloud-ready design using FastAPI and PostgreSQL.
+# Store Management API
+
+Enterprise-grade Store Management API designed to demonstrate backend architecture, data modeling, and business rule implementation using modern cloud-native principles.
+
+---
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Why this project?](#why-this-project)
+3. [Architectural Design Decisions](#architectural-design-decisions)
+4. [Business Context](#business-context)
+5. [Data Model](#data-model)
+6. [Key Features](#key-features)
+7. [Architecture](#architecture)
+8. [Cloud Deployment Strategy](#cloud-deployment-strategy)
+9. [API Endpoints](#api-endpoints)
+10. [Environments](#environments)
+11. [CI/CD Pipeline](#cicd-pipeline)
+12. [Installation and Setup](#installation-and-setup)
+13. [Testing](#testing)
+14. [Future Improvements](#future-improvements)
+15. [Target Audience](#target-audience)
+16. [License](#license)
+
+---
+
+## Introduction
+
+This project is an enterprise-grade Store Management API designed to showcase **backend architecture, business rules, and cloud-ready design**.
+
+The application follows a data-driven approach inspired by the **MERISE methodology**, from Conceptual Data Model (MCD) to Logical Data Model (MLD), and finally implemented as a **RESTful API** using **FastAPI** and **PostgreSQL**.
+
+Swagger UI (OpenAPI) is used as the primary interface for exploring and testing the API.
+
+The primary objective of this project is **not to deliver a feature-rich frontend**, but to showcase:
+
+- Strong data modeling and relational database design
+- Clear separation between API layer, business logic, and persistence
+- Realistic enterprise business rules (inventory, orders lifecycle, consistency)
+- Environment-based configuration (dev / staging / production)
+- CI/CD-ready architecture aligned with cloud best practices
+
+This repository reflects how a backend service would be designed, implemented, and operated in a real-world enterprise or cloud environment.
+
+---
+
+## Why this project?
+
+This project was intentionally designed as a backend-first system.
+
+In real enterprise environments, backend services are often developed independently from frontend applications and consumed by multiple clients (web, mobile, internal tools, integrations).
+
+The focus is therefore placed on:
+
+- API contract clarity (OpenAPI / Swagger)
+- Business rule enforcement at the service layer
+- Data consistency and transactional integrity
+- Scalability and maintainability
+- Cloud and DevOps readiness
+
+---
+
+## Architectural Design Decisions
+
+The architecture of this API follows the Clean Architecture principle, ensuring the business logic remains decoupled from external frameworks and database drivers. I chose FastAPI over heavier frameworks like Django because of its asynchronous capabilities and native support for Pydantic validation, which ensures type safety and high performance under load. To maintain data integrity—a critical requirement for retail systems—I opted for a Relational Database (PostgreSQL) to enforce ACID compliance during complex order transactions. The project utilizes the Repository Pattern, allowing for easier unit testing through dependency injection and providing the flexibility to swap the persistence layer (like DataBase migration) with minimal impact on the core business rules.
+
+Non-Goals / Trade-offs:
+
+- Microservices intentionally avoided to reduce operational overhead
+- Authentication deferred to keep focus on core domain modeling
+- Event-driven architecture postponed until scale justifies it
+
+---
+
+## Business Context
+
+This API simulates the operations of a retail store, including:
+
+- Customer management
+- Product catalog and categories
+- Order lifecycle and stock management
+- Employee assignment for order processing
+
+The design respects realistic enterprise business rules:
+
+- One client can place multiple orders.
+- A product can belong to multiple orders.
+- Orders are linked to employees optionally.
+- Product categories manage product organization.
+
+---
+
+## Data Model
+
+The main entities are:
+
+- **Client**: ID, Name, Email, Phone, Address
+- **Product**: ID, Name, Description, Unit Price, Stock
+- **Order**: ID, Date, Total Amount, Status
+- **Category**: ID, Name
+- **Employee**: ID, Name, Position
+
+### Relationships / Associations
+
+- **Passer (Client → Order)**: 1,N
+- **Contenir (Order → Product)**: N,N with Quantity
+- **Appartenir (Product → Category)**: 1,N
+- **Vendre (Employee → Order)**: 0,N
+
+Below is a **diagram of the database schema (MCD/MLD)**
+
+![Model Conceptuel de Donees](/assets/images/mcd.png)
+
+---
+
+## Key Features
+
+- Full **CRUD** operations for all entities
+- Business rules enforced at API layer
+- **Inventory management**: stock decreases automatically on orders
+- **Order lifecycle**: draft, confirmed, shipped, delivered
+- Swagger/OpenAPI interactive documentation
+- Configurable **environment variables** for dev/staging/prod
+- Cloud-ready: containerized, ready for CI/CD deployment
+
+---
+
+## Architecture
+
+### Tech Stack
+
+- **Backend**: FastAPI, Python 3.11
+- **Database**: PostgreSQL
+- **ORM / Migrations**: SQLAlchemy, Alembic
+- **Containerization**: Docker
+- **CI/CD**: GitHub Actions
+- **Testing**: Pytest
+- **Documentation**: OpenAPI / Swagger UI
+
+### Design Principles
+
+- Separation of **business logic** and **persistence**
+- Environment-aware configuration (dev / staging / prod)
+- API-first design
+- Scalable and maintainable code structure
+
+---
+
+## Cloud Deployment Strategy
+
+While this repository is container-neutral, the intended production architecture leverages cloud-native services to ensure the core architectural pillars.
+
+- Compute: Deployable on Amazon EKS (Kubernetes) or Azure Kubernetes Service (AKS) using Helm charts for orchestration. Horizontal Pod Autoscaling (HPA) is triggered based on CPU/Memory metrics to handle traffic spikes.
+- Database: Migration from a local container to a managed service like Amazon RDS (PostgreSQL) or Azure Database for PostgreSQL. This enables automated backups, Multi-AZ high availability, and encryption at rest.
+- Networking & Edge:
+  - Ingress: Managed via an Ingress Controller (Nginx/ALB) with SSL termination via AWS Certificate Manager.
+  - CDN: Static documentation and any future frontend assets are served via Amazon CloudFront to reduce latency and egress costs.
+- Governance & Compliance (Law 25/GDPR): In a production scenario, PII (Personally Identifiable Information) in the `Client` entity would be encrypted at the database level and subject to strict data retention policies enforced by cloud-native lifecycle management.
+
+---
+
+> /_Add one clear architecture diagram right after "Architecture" or "Cloud Deployment Strategy" section
+> This is the #1 thing missing for architect-level credibility.
+> Use draw.io / diagrams.net / Excalidraw / Lucidchart (free).
+> Show: Client → API (FastAPI) → Application Logic → Repository → PostgreSQL (with relations), plus intended cloud pieces (EKS/AKS pods, RDS, ALB/Ingress, CloudFront, secrets, monitoring if you add later).
+> Include a simple note: "High-level target architecture for production (Kubernetes + managed DB)".
+> → Embed it as PNG/SVG with good resolution. Recruiters love visuals._/
+
+## API Endpoints
+
+Interactive API documentation is available at:
+/docs (Swagger UI)
+/redoc (ReDoc)
+
+### Main Endpoints
+
+- `/clients` – manage customers
+- `/products` – manage products
+- `/categories` – manage categories
+- `/orders` – manage orders
+- `/employees` – manage employees
+- `/orders/{order_id}/products` – manage products in orders
+
+> Example requests and responses can be explored in Swagger UI.
+
+---
+
+## Environments
+
+The project is designed with **3 isolated environments**, simulating real enterprise deployment:
+
+| Environment | Database   | API URL                | Swagger              |
+| ----------- | ---------- | ---------------------- | -------------------- |
+| Development | db-dev     | http://localhost:8000  | Enabled              |
+| Staging     | db-staging | http://staging.api.com | Enabled              |
+| Production  | db-prod    | http://api.com         | Disabled / Protected |
+
+All environment-specific settings are managed via **environment variables**.
+
+---
+
+## CI/CD Pipeline
+
+The project includes a **CI/CD pipeline** using GitHub Actions:
+
+### CI (Continuous Integration)
+
+- Linting with `ruff` / `flake8`
+- Unit tests with `pytest`
+- Build Docker image
+- Validation of database migrations
+
+### CD (Continuous Deployment)
+
+- Auto-deployment to dev environment on PR merge
+- Staging deployment after approval
+- Manual production deployment reflects enterprise change-management and risk-control practices.
+- Environment variables injected via secrets / configs
+
+---
+
+## Installation and Setup
+
+1. Clone the repository:
+
+```
+git clone https://github.com/razackou/store-management-api.git
+cd store-management-api
+```
+
+2. Set up a virtual environment and install dependencies:
+
+```
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+3. Configure environment variables:
+
+```
+DATABASE_URL=postgresql://user:password@localhost:5432/store_db
+ENV=dev
+DEBUG=True
+```
+
+4. Run database migrations:
+
+```
+alembic upgrade head
+```
+
+5. Start the API:
+
+```
+uvicorn main:app --reload
+```
+
+6. Access Swagger UI:
+
+```
+http://127.0.0.1:8000/docs
+```
+
+## Testing
+
+- Run unit tests with: `pytest --cov=`.
+- Integrated into CI pipeline
+- Check code coverage and linting as part of CI
+
+## Future Improvements
+
+- Add authentication / Role-Based Access Control
+- Multi-store support
+- Reporting / analytics endpoints
+- Frontend SPA (React / Vue) consuming API
+- Integration with cloud managed database services (RDS, Cloud SQL)
+
+## Target Audience
+
+- Backend Engineers
+- Cloud Engineers
+- Cloud / Solution Architects
+- Technical interviewers evaluating system design and backend capabilities
+- Anyone interested in enterprise-grade API design
+
+## License
+
+This project is licensed under the MIT License.
+
+---do below then delete---
+You have placeholders for images. To look like a pro, I recommend creating/finding these specific views:
+
+- The Logical View (Data Model): Place an image showing your entities and their relationships.
+- The Infrastructure View (Cloud Deployment): This is the most important for your goal. It should show a VPC, Public/Private subnets, and how traffic flows from the Internet to your API.
+- The Process View (CI/CD): A simple flow showing Code → GitHub Actions → Docker Registry → Deployment.
