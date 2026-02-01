@@ -299,9 +299,9 @@ pytest --cov=.
 
 This project is licensed under the MIT License.
 
----do below then delete---
-You have placeholders for images. To look like a pro, I recommend creating/finding these specific views:
+> ---do below then delete---
 
-- The Logical View (Data Model): Place an image showing your entities and their relationships.
-- The Infrastructure View (Cloud Deployment): This is the most important for your goal. It should show a VPC, Public/Private subnets, and how traffic flows from the Internet to your API.
-- The Process View (CI/CD): A simple flow showing Code → GitHub Actions → Docker Registry → Deployment.
+> You have placeholders for images. To look like a pro, I recommend creating/finding these specific views:
+
+> - The Infrastructure View (Cloud Deployment): This is the most important for your goal. It should show a VPC, Public/Private subnets, and how traffic flows from the Internet to your API.
+> - The Process View (CI/CD): A simple flow showing Code → GitHub Actions → Docker Registry → Deployment.

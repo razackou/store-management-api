@@ -4,4 +4,4 @@ app = FastAPI()
 
 @app.get("/")
 def test():
-    return{"hello me"}
+    return{"hello me", "Server is up and running"}
