@@ -110,7 +110,7 @@ The main entities are:
 
 Below is a **diagram of the database schema (MCD/MLD)**
 
-![Model Conceptuel de Donees](./mcd.png)
+![Diagram MCD](/assets/mcd.png)
 
 ---
 
@@ -128,9 +128,11 @@ Below is a **diagram of the database schema (MCD/MLD)**
 
 ## Architecture
 
+![Architecture](/assets/architecture.png)
+
 ### Tech Stack
 
-- **Backend**: FastAPI, Python 3.11
+- **Backend**: FastAPI, Python
 - **Database**: PostgreSQL
 - **ORM / Migrations**: SQLAlchemy, Alembic
 - **Containerization**: Docker
@@ -170,8 +172,9 @@ While this repository is container-neutral, the intended production architecture
 ## API Endpoints
 
 Interactive API documentation is available at:
-/docs (Swagger UI)
-/redoc (ReDoc)
+
+- `/docs` (Swagger UI)
+- `/redoc` (ReDoc)
 
 ### Main Endpoints
 
@@ -203,6 +206,8 @@ All environment-specific settings are managed via **environment variables**.
 ## CI/CD Pipeline
 
 The project includes a **CI/CD pipeline** using GitHub Actions:
+
+![CI/CD pipeline](/assets/cicd.png)
 
 ### CI (Continuous Integration)
 
@@ -265,7 +270,12 @@ http://127.0.0.1:8000/docs
 
 ## Testing
 
-- Run unit tests with: `pytest --cov=`.
+- Run unit tests with:
+
+```
+pytest --cov=.
+```
+
 - Integrated into CI pipeline
 - Check code coverage and linting as part of CI
 
