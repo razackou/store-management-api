@@ -103,10 +103,10 @@ The main entities are:
 
 ### Relationships / Associations
 
-- **Passer (Client → Order)**: 1,N
-- **Contenir (Order → Product)**: N,N with Quantity
+- **Placed (Client → Order)**: 1,N
+- **Belong (Order → Product)**: N,N with Quantity
 - **Appartenir (Product → Category)**: 1,N
-- **Vendre (Employee → Order)**: 0,N
+- **Sell (Employee → Order)**: 0,N
 
 Below is a **diagram of the database schema (MCD/MLD)**
 
@@ -183,9 +183,15 @@ Interactive API documentation is available at:
 - `/categories` – manage categories
 - `/orders` – manage orders
 - `/employees` – manage employees
-- `/orders/{order_id}/products` – manage products in orders
 
-> Example requests and responses can be explored in Swagger UI.
+Application health is available at:
+
+- `/health`
+- `/health/db`
+
+![Endpoints](/assets/endpoints.png)
+
+![Health](/assets/health.png)
 
 ---
 
@@ -240,6 +246,8 @@ cd store-management-api
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+
+cd backend
 ```
 
 3. Configure environment variables:
@@ -273,7 +281,8 @@ http://127.0.0.1:8000/docs
 - Run unit tests with:
 
 ```
-pytest --cov=.
+pytest -v
+pytest --cov
 ```
 
 - Integrated into CI pipeline
@@ -304,4 +313,3 @@ This project is licensed under the MIT License.
 > You have placeholders for images. To look like a pro, I recommend creating/finding these specific views:
 
 > - The Infrastructure View (Cloud Deployment): This is the most important for your goal. It should show a VPC, Public/Private subnets, and how traffic flows from the Internet to your API.
-> - The Process View (CI/CD): A simple flow showing Code → GitHub Actions → Docker Registry → Deployment.
