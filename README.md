@@ -20,8 +20,9 @@ Enterprise-grade Store Management API designed to demonstrate backend architectu
 12. [Installation and Setup](#installation-and-setup)
 13. [Testing](#testing)
 14. [Future Improvements](#future-improvements)
-15. [Target Audience](#target-audience)
-16. [License](#license)
+15. [In case you clone the repo for future improvements](#in-case-you-clone-the-repo-for-future-improvements)
+16. [Target Audience](#target-audience)
+17. [License](#license)
 
 ---
 
@@ -153,21 +154,16 @@ Below is a **diagram of the database schema (MCD/MLD)**
 
 While this repository is container-neutral, the intended production architecture leverages cloud-native services to ensure the core architectural pillars.
 
-- Compute: Deployable on Amazon EKS (Kubernetes) or Azure Kubernetes Service (AKS) using Helm charts for orchestration. Horizontal Pod Autoscaling (HPA) is triggered based on CPU/Memory metrics to handle traffic spikes.
-- Database: Migration from a local container to a managed service like Amazon RDS (PostgreSQL) or Azure Database for PostgreSQL. This enables automated backups, Multi-AZ high availability, and encryption at rest.
+- Compute: Deployable on Amazon ECS or EKS (Kubernetes) using Helm charts for orchestration. Horizontal Pod Autoscaling (HPA) is triggered based on CPU/Memory metrics to handle traffic spikes.
+- Database: Migration from a local container to a managed service like Amazon RDS (PostgreSQL). This enables automated backups, Multi-AZ high availability, and encryption at rest.
 - Networking & Edge:
   - Ingress: Managed via an Ingress Controller (Nginx/ALB) with SSL termination via AWS Certificate Manager.
   - CDN: Static documentation and any future frontend assets are served via Amazon CloudFront to reduce latency and egress costs.
-- Governance & Compliance (Law 25/GDPR): In a production scenario, PII (Personally Identifiable Information) in the `Client` entity would be encrypted at the database level and subject to strict data retention policies enforced by cloud-native lifecycle management.
+- Governance & Compliance (Law 25 (Quebec)/GDPR): In a production scenario, PII (Personally Identifiable Information) in the `Client` entity would be encrypted at the database level and subject to strict data retention policies enforced by cloud-native lifecycle management.
+
+![AWS Deploymement](/assets/aws.png)
 
 ---
-
-> /_Add one clear architecture diagram right after "Architecture" or "Cloud Deployment Strategy" section
-> This is the #1 thing missing for architect-level credibility.
-> Use draw.io / diagrams.net / Excalidraw / Lucidchart (free).
-> Show: Client → API (FastAPI) → Application Logic → Repository → PostgreSQL (with relations), plus intended cloud pieces (EKS/AKS pods, RDS, ALB/Ingress, CloudFront, secrets, monitoring if you add later).
-> Include a simple note: "High-level target architecture for production (Kubernetes + managed DB)".
-> → Embed it as PNG/SVG with good resolution. Recruiters love visuals._/
 
 ## API Endpoints
 
@@ -296,6 +292,37 @@ pytest --cov
 - Frontend SPA (React / Vue) consuming API
 - Integration with cloud managed database services (RDS, Cloud SQL)
 
+## In case you clone the repo for future improvements
+
+in GitHub Secrets — Add these to the repo (Settings > Secrets and variables > Actions):
+
+```
+AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY
+AWS_REGION (e.g., us-east-1)
+ECR_REPOSITORY (e.g., store-management-api)
+ECS_CLUSTER (your cluster name)
+ECS_SERVICE (your service name)
+```
+
+AWS Setup (one-time):
+
+```
+# Create ECR repository
+aws ecr create-repository --repository-name store-management-api --region us-east-1
+
+# Create Secrets Manager entries for DB credentials
+aws secretsmanager create-secret --name store-management-api/db-url --secret-string "postgresql://..." --region us-east-1
+```
+
+Update ecs/taskdef.json file by replacing:
+
+- PLACEHOLDER_IMAGE_URI → your ECR repo URI
+- REGION and ACCOUNT placeholders → your AWS details
+- IAM role ARNs for executionRoleArn and taskRoleArn
+
+You can now push to GitHub and watch the workflow run automatically!
+
 ## Target Audience
 
 - Backend Engineers
@@ -308,8 +335,4 @@ pytest --cov
 
 This project is licensed under the MIT License.
 
-> ---do below then delete---
-
-> You have placeholders for images. To look like a pro, I recommend creating/finding these specific views:
-
-> - The Infrastructure View (Cloud Deployment): This is the most important for your goal. It should show a VPC, Public/Private subnets, and how traffic flows from the Internet to your API.
+> Everything should be ok now, try to add the ci/cd pipeline for the deploy on aws
