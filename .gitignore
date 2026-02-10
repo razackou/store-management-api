@@ -24,14 +24,6 @@ share/python-wheels/
 MANIFEST
 
 ## Delete below progressively till the end of the project
-#backend/app/models/
-#backend/app/schemas/
-#alembic/             
-#alembic.ini          
-#backend/app/crud/    
-##next commit (crud): product stock management (on saturday)(comment above line and commit with the message)
-#backend/app/routers/ 
-##next commit (routers): order lifecycle (on monday)(comment above line and commit with the message)
 backend/app/config.py
 backend/app/database.py 
 backend/app/main.py
