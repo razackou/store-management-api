@@ -30,7 +30,7 @@ MANIFEST
 #alembic.ini          
 #backend/app/crud/    
 ##next commit (crud): product stock management (on saturday)(comment above line and commit with the message)
-backend/app/routers/ 
+#backend/app/routers/ 
 ##next commit (routers): order lifecycle (on monday)(comment above line and commit with the message)
 backend/app/config.py
 backend/app/database.py 
