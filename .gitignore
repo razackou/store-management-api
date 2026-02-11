@@ -24,10 +24,10 @@ share/python-wheels/
 MANIFEST
 
 ## Delete below progressively till the end of the project
-backend/app/config.py
-backend/app/database.py 
-backend/app/main.py
-backend/app/__init__.py
+#backend/app/config.py
+#backend/app/database.py 
+#backend/app/main.py
+#backend/app/__init__.py
 ##next commit (all above *.py files): adding database, main and config files (on tuesday)(comment above line and commit with the message)
 backend/app/routers/health.py
 ##next commit (tests): adding health checks (on wednesday)(comment above line and commit with the message)
