@@ -133,7 +133,15 @@ Below is a **diagram of the database schema (MCD/MLD)**
 
 ## Architecture
 
-![Architecture](/assets/architecture.png)
+```mermaid
+graph LR
+    A[Client / Postman / Swagger UI] --> B[FastAPI REST API]
+    B --> C[Business Logic Layer]
+    C --> D[(PostgreSQL Database)]
+    B --> E[CI/CD & Monitoring]
+```
+
+> ![Architecture](/assets/architecture.png)
 
 ### Tech Stack
 
@@ -474,7 +482,16 @@ All environment-specific settings are managed via **environment variables**.
 
 The project includes a **CI/CD pipeline** using GitHub Actions:
 
-![CI/CD pipeline](/assets/cicd.png)
+```mermaid
+flowchart LR
+    Dev[Developer pushes code] --> CI[GitHub Actions - Lint & Test]
+    CI --> Build[Docker Image Build]
+    Build --> Staging[Deploy to Staging Env]
+    Staging --> Approval[Manual Approval]
+    Approval --> Prod[Deploy to Production]
+```
+
+> ![CI/CD pipeline](/assets/cicd.png)
 
 ### CI (Continuous Integration)
 
