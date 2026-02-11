@@ -135,7 +135,7 @@ Below is a **diagram of the database schema (MCD/MLD)**
 
 ```mermaid
 graph LR
-    A[Client / Postman / Swagger UI] --> B[FastAPI REST API]
+    A[Client / Swagger UI] --> B[FastAPI REST API]
     B --> C[Business Logic Layer]
     C --> D[(PostgreSQL Database)]
     B --> E[CI/CD & Monitoring]
@@ -484,7 +484,7 @@ The project includes a **CI/CD pipeline** using GitHub Actions:
 
 ```mermaid
 flowchart LR
-    Dev[Developer pushes code] --> CI[GitHub Actions - Lint & Test]
+    Dev[Code pushed] --> CI[GitHub Actions - Lint & Test]
     CI --> Build[Docker Image Build]
     Build --> Staging[Deploy to Staging Env]
     Staging --> Approval[Manual Approval]
