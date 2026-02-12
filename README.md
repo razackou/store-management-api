@@ -32,7 +32,9 @@ Enterprise-grade retail backend system designed to demonstrate enterprise cloud 
 
 ## Introduction
 
-This project is an enterprise-grade Store Management API designed to showcase **backend architecture, business rules, and cloud-ready design**.
+This project is an enterprise-grade retail backend system designed to demonstrate **cloud architecture decision-making, domain-driven design principles, and governance-ready deployment strategies** in an AWS enterprise context.
+
+> This project is an enterprise-grade Store Management API designed to showcase **backend architecture, business rules, and cloud-ready design**.
 
 The application follows a data-driven approach inspired by the **MERISE methodology**, from Conceptual Data Model (MCD) to Logical Data Model (MLD), and finally implemented as a **RESTful API** using **FastAPI** and **PostgreSQL**.
 

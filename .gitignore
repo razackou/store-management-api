@@ -24,12 +24,7 @@ share/python-wheels/
 MANIFEST
 
 ## Delete below progressively till the end of the project
-#backend/app/config.py
-#backend/app/database.py 
-#backend/app/main.py
-#backend/app/__init__.py
-##next commit (all above *.py files): adding database, main and config files (on tuesday)(comment above line and commit with the message)
-backend/app/routers/health.py
+#backend/app/routers/health.py
 ##next commit (tests): adding health checks (on wednesday)(comment above line and commit with the message)
 tests/
 ##next commit (*.py files): various tests (on Friday)(comment above line and commit with the message)
@@ -43,7 +38,6 @@ ecs/taskdef.json
 ##next commit (all above three files): adding GitHub Actions CI/CD pipeline      
 
 ##next commit (Just remove the very last line in the readme then commit): (on saturday) Completing readme file (comment above line and commit with the message)
-
 
 # Virtual Environment
 venv/
