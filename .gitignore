@@ -24,9 +24,7 @@ share/python-wheels/
 MANIFEST
 
 ## Delete below progressively till the end of the project
-#backend/app/routers/health.py
-##next commit (tests): adding health checks (on wednesday)(comment above line and commit with the message)
-tests/
+#tests/
 ##next commit (*.py files): various tests (on Friday)(comment above line and commit with the message)
 backend/app/logging_config.py 
 ##next commit (logging_config.py files): adding logging file (for cloudwatch) (on Friday) (comment above line and commit with the message)  
