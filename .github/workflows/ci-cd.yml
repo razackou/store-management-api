@@ -129,13 +129,20 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ secrets.AWS_REGION }}
 
-      - name: Debug image tag
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Construct image URI
+        id: image-uri
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+          IMAGE_TAG: ${{ github.sha }}
         run: |
-          echo "Image tag from build job: ${{ needs.build-and-push.outputs.image-tag }}"
-          if [ -z "${{ needs.build-and-push.outputs.image-tag }}" ]; then
-            echo "ERROR: image-tag is empty!"
-            exit 1
-          fi
+          IMAGE_URI="${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
+          echo "image=${IMAGE_URI}" >> "$GITHUB_OUTPUT"
+          echo "Using image: ${IMAGE_URI}"
 
       - name: Update ECS task definition
         id: task-def
@@ -143,7 +150,7 @@ jobs:
         with:
           task-definition: ecs/taskdef.json
           container-name: store-management-api
-          image: ${{ needs.build-and-push.outputs.image-tag }}
+          image: ${{ steps.image-uri.outputs.image }}
 
       - name: Deploy to ECS Fargate service
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
