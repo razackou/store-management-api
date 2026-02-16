@@ -26,4 +26,4 @@ def health_db(db: Session = Depends(get_db)):
         db.execute(text("SELECT 1"))
         return {"status": "database is up and running."}
     except Exception as exc:
-        raise HTTPException(status_code=503, detail=str(exc))
+        raise HTTPException(status_code=503, detail=str(exc)) from exc

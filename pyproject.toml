@@ -38,7 +38,13 @@ select = ["E", "F", "W", "I", "N", "UP", "B"]
 # Ignore specific rules if needed
 ignore = [
     "E501",  # Line too long (handled by formatter)
+    "B008",  # Do not perform function calls in argument defaults (FastAPI Depends pattern)
 ]
+
+# Per-file ignores
+[tool.ruff.lint.per-file-ignores]
+"backend/alembic/env.py" = ["E402"]  # Module level import not at top (required for Alembic)
+"backend/tests/*.py" = ["N806"]  # Allow uppercase variable names in tests
 
 # Allow autofix for specific rules
 fixable = ["ALL"]
