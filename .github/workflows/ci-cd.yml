@@ -54,6 +54,7 @@ jobs:
     permissions:
       contents: read
       id-token: write
+      security-events: write
 
     outputs:
       image-tag: ${{ steps.image.outputs.tag }}
@@ -94,7 +95,7 @@ jobs:
           output: "trivy-results.sarif"
 
       - name: Upload Trivy results to GitHub Security
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: "trivy-results.sarif"
 
