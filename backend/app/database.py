@@ -1,8 +1,9 @@
 import os
-from sqlalchemy import create_engine, event
-from sqlalchemy.orm import sessionmaker, declarative_base
-from sqlalchemy.pool import NullPool, QueuePool
+
 from dotenv import load_dotenv
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, sessionmaker
+from sqlalchemy.pool import NullPool, QueuePool
 
 # Load environment variables from .env file
 load_dotenv()
@@ -10,7 +11,7 @@ load_dotenv()
 # Get DATABASE_URL from environment or construct it from components
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
-    f"postgresql+psycopg2://{os.getenv('DB_USER', 'postgres')}:{os.getenv('DB_PASSWORD', 'postgres')}@{os.getenv('DB_HOST', 'localhost')}:{os.getenv('DB_PORT', '5432')}/{os.getenv('DB_NAME', 'store')}"
+    f"postgresql+psycopg2://{os.getenv('DB_USER', 'postgres')}:{os.getenv('DB_PASSWORD', 'postgres')}@{os.getenv('DB_HOST', 'localhost')}:{os.getenv('DB_PORT', '5432')}/{os.getenv('DB_NAME', 'store')}",
 )
 
 # Determine if we're in production (using RDS or similar)
@@ -30,7 +31,7 @@ if ENVIRONMENT == "production":
     engine_kwargs["max_overflow"] = int(os.getenv("DB_MAX_OVERFLOW", "20"))
     engine_kwargs["pool_pre_ping"] = True  # Test connections before using
     engine_kwargs["pool_recycle"] = 3600  # Recycle connections every hour
-    
+
     # Add SSL for cloud databases
     if "sslmode" not in DATABASE_URL:
         DATABASE_URL = f"{DATABASE_URL}?sslmode=require"
@@ -44,6 +45,7 @@ engine = create_engine(DATABASE_URL, **engine_kwargs)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
+
 
 def get_db():
     db = SessionLocal()

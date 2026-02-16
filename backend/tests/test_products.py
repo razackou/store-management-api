@@ -4,13 +4,16 @@ def test_crud_products(client):
     cat_id = cat["id"]
 
     # CREATE product
-    res = client.post("/products/", json={
-        "name": "Python Book",
-        "description": "Learn Python",
-        "unit_price": 29.99,
-        "stock": 50,
-        "category_id": cat_id
-    })
+    res = client.post(
+        "/products/",
+        json={
+            "name": "Python Book",
+            "description": "Learn Python",
+            "unit_price": 29.99,
+            "stock": 50,
+            "category_id": cat_id,
+        },
+    )
     assert res.status_code == 200
     prod_id = res.json()["id"]
 

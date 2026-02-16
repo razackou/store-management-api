@@ -1,5 +1,6 @@
 import logging
 import logging.config
+
 from app.config import settings
 
 LOGGING_CONFIG = {
@@ -20,6 +21,7 @@ LOGGING_CONFIG = {
     },
     "root": {"handlers": ["console"], "level": settings.LOG_LEVEL},
 }
+
 
 def configure_logging() -> None:
     """Configure logging for the application using dictConfig."""

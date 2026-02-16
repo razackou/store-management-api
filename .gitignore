@@ -20,10 +20,6 @@ share/python-wheels/
 MANIFEST
 
 ## Delete below progressively till the end of the project
-#backend/app/logging_config.py 
-##next commit (logging_config.py files): adding logging file (for cloudwatch) (on Friday) (comment above line and commit with the message)  
-.env.example    
-##next commit (.env.example): adding .env.example file with instructions (on saturday) (comment above line and commit with the message) 
 Dockerfile
 .github/workflows/ci-cd.yml
 ecs/taskdef.json

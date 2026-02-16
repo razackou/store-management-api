@@ -1,6 +1,8 @@
 def test_crud_employees(client):
     # CREATE
-    res = client.post("/employees/", json={"name": "Zak", "position": "Cloud Architect"})
+    res = client.post(
+        "/employees/", json={"name": "Zak", "position": "Cloud Architect"}
+    )
     assert res.status_code == 200
     emp_id = res.json()["id"]
 

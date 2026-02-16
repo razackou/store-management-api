@@ -1,12 +1,16 @@
 from sqlalchemy.orm import Session
+
 from app.models.category import Category
 from app.schemas.category import CategoryCreate, CategoryUpdate
+
 
 def get_category(db: Session, category_id: int):
     return db.query(Category).filter(Category.id == category_id).first()
 
+
 def get_categories(db: Session, skip: int = 0, limit: int = 100):
     return db.query(Category).offset(skip).limit(limit).all()
+
 
 def create_category(db: Session, category_data: CategoryCreate):
     category = Category(**category_data.model_dump())
@@ -14,6 +18,7 @@ def create_category(db: Session, category_data: CategoryCreate):
     db.commit()
     db.refresh(category)
     return category
+
 
 def update_category(db: Session, category_id: int, category_data: CategoryUpdate):
     category = get_category(db, category_id)
@@ -24,6 +29,7 @@ def update_category(db: Session, category_id: int, category_data: CategoryUpdate
     db.commit()
     db.refresh(category)
     return category
+
 
 def delete_category(db: Session, category_id: int):
     category = get_category(db, category_id)

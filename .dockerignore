@@ -1,0 +1,62 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+coverage.xml
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# Documentation
+README.md
+LICENSE
+*.md
+docs/
+assets/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Alembic (keep only necessary files)
+backend/alembic/__pycache__/
+backend/alembic/versions/__pycache__/
+
+# Keep tests out of production image (optional - uncomment if you want)
+# backend/tests/

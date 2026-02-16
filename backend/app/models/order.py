@@ -1,7 +1,9 @@
-from sqlalchemy import Column, Integer, Numeric, String, ForeignKey, TIMESTAMP
+from sqlalchemy import TIMESTAMP, Column, ForeignKey, Integer, Numeric, String
 from sqlalchemy.orm import relationship
-from app.database import Base
 from sqlalchemy.sql import func
+
+from app.database import Base
+
 
 class Order(Base):
     __tablename__ = "order"

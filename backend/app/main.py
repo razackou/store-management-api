@@ -1,8 +1,9 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from app.config import settings
 from app.logging_config import configure_logging
-from app.routers import clients, category, products, employees, orders, health
+from app.routers import category, clients, employees, health, orders, products
 
 configure_logging()
 

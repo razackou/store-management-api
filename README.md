@@ -143,8 +143,6 @@ graph LR
     B --> E[CI/CD & Monitoring]
 ```
 
-> ![Architecture](/assets/architecture.png)
-
 ### Tech Stack
 
 - **Backend**: FastAPI, Python
@@ -175,7 +173,7 @@ While this repository is container-neutral, the intended production architecture
   - CDN: Static documentation and any future frontend assets are served via Amazon CloudFront to reduce latency and egress costs.
 - Governance & Compliance (Law 25 (Quebec)/GDPR): In a production scenario, PII (Personally Identifiable Information) in the `Client` entity would be encrypted at the database level and subject to strict data retention policies enforced by cloud-native lifecycle management.
 
-![AWS Deploymement](/assets/aws.png)
+![AWS Deployment](/assets/aws.png)
 
 ---
 
@@ -216,13 +214,13 @@ A serverless-first model would be preferable when:
 
 | Criteria                   | Containers (ECS/EKS + RDS) | Serverless (Lambda + DynamoDB) |
 | -------------------------- | -------------------------- | ------------------------------ |
-| Strong ACID Transactions   | ✅ Native                  | ⚠️ Limited / Complex           |
-| Cold Start Impact          | ❌ None                    | ⚠️ Possible                    |
-| Operational Control        | ✅ High                    | ⚠️ Abstracted                  |
-| Cost (Low Traffic)         | ❌ Higher                  | ✅ Lower                       |
-| Cost (High Sustained Load) | ✅ Predictable             | ⚠️ Can Increase                |
-| Governance Complexity      | ⚠️ Medium                  | ⚠️ IAM Intensive               |
-| Multi-Service Decoupling   | ⚠️ Requires Setup          | ✅ Native                      |
+| Strong ACID Transactions   | Native                     | Limited / Complex              |
+| Cold Start Impact          | None                       | Possible                       |
+| Operational Control        | High                       | Abstracted                     |
+| Cost (Low Traffic)         | Higher                     | Lower                          |
+| Cost (High Sustained Load) | Predictable                | Can Increase                   |
+| Governance Complexity      | Medium                     | IAM Intensive                  |
+| Multi-Service Decoupling   | Requires Setup             | Native                         |
 
 This project demonstrates architectural awareness rather than adherence to a single paradigm.
 
@@ -493,21 +491,20 @@ flowchart LR
     Approval --> Prod[Deploy to Production]
 ```
 
-> ![CI/CD pipeline](/assets/cicd.png)
-
 ### CI (Continuous Integration)
 
-- Linting with `ruff` / `flake8`
+- Linting with `ruff`
 - Unit tests with `pytest`
 - Build Docker image
-- Validation of database migrations
 
-### CD (Continuous Deployment)
+### CD (Continuous Deployment) — Intended Flow
 
 - Auto-deployment to dev environment on PR merge
 - Staging deployment after approval
 - Manual production deployment reflects enterprise change-management and risk-control practices.
 - Environment variables injected via secrets / configs
+
+> **Note:** CI/CD steps above reflect intended enterprise practices. Current implementation: `ruff` linting, `pytest` tests, Docker build/push to ECR, and auto-deploy to ECS on push to `main`. Migration validation and staged deployments with manual approvals are documented as intended but not enforced. See `.github/workflows/ci-cd.yml` for active pipeline.
 
 ---
 
@@ -547,7 +544,7 @@ alembic upgrade head
 5. Start the API:
 
 ```
-uvicorn main:app --reload
+uvicorn app.main:app --reload
 ```
 
 6. Access Swagger UI:
