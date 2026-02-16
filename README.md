@@ -530,7 +530,7 @@ cd backend
 3. Configure environment variables:
 
 ```
-DATABASE_URL=postgresql://user:password@localhost:5432/store_db
+DATABASE_URL=postgresql://user:password@localhost:5432/store
 ENV=dev
 DEBUG=True
 ```

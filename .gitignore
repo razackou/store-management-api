@@ -19,28 +19,33 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-## Delete below progressively till the end of the project
-Dockerfile
-.github/workflows/ci-cd.yml
-ecs/taskdef.json
-##next commit (all above three files): adding GitHub Actions CI/CD pipeline      
-
-##next commit (Just remove the very last line in the readme then commit): (on saturday) Completing readme file (comment above line and commit with the message)
-
 # Virtual Environment
 venv/
+.venv/
+env/
+ENV/
 
 # IDE
 .vscode/
+.idea/
+*.code-workspace
 
 # Testing
 .pytest_cache/
 .coverage
 htmlcov/
 .tox/
+coverage.xml
+*.cover
+
+# Linting/Type Checking
+.ruff_cache/
+.mypy_cache/
 
 # Environment variables
 .env
+.env.*
+!.env.example
 
 # Database
 *.db
@@ -50,3 +55,6 @@ htmlcov/
 # Logs
 *.log
 logs/
+
+
+##next commit (Just remove the very last line in the readme then commit): (on saturday) Completing readme file (comment above line and commit with the message)

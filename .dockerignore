@@ -30,9 +30,6 @@ coverage.xml
 
 # IDEs
 .vscode/
-.idea/
-*.swp
-*.swo
 *~
 .DS_Store
 
@@ -52,7 +49,6 @@ assets/
 
 # CI/CD
 .github/
-.gitlab-ci.yml
 
 # Alembic (keep only necessary files)
 backend/alembic/__pycache__/
