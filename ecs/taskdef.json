@@ -7,7 +7,7 @@
   "containerDefinitions": [
     {
       "name": "store-management-api",
-      "image": "xxxxxxxxxxxx.dkr.ecr.xx-xxxxxx-x.amazonaws.com/store-management-api",
+      "image": "PLACEHOLDER_IMAGE_URI",
       "essential": true,
       "portMappings": [
         {
@@ -40,18 +40,18 @@
       "secrets": [
         {
           "name": "DATABASE_URL",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:xxxxxxxxxxxx:secret:store-management-api/db-url-xxxxx"
+          "valueFrom": "arn:aws:secretsmanager:REGION:ACCOUNT:secret:store-management-api/db-url-xxxxx"
         },
         {
           "name": "SECRET_KEY",
-          "valueFrom": "arn:aws:secretsmanager:us-east-1:xxxxxxxxxxxx:secret:store-management-api/secret-key-xxxxx"
+          "valueFrom": "arn:aws:secretsmanager:REGION:ACCOUNT:secret:store-management-api/secret-key-xxxxx"
         }
       ],
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
           "awslogs-group": "/ecs/store-management-api",
-          "awslogs-region": "xx-xxxxx-x",
+          "awslogs-region": "REGION",
           "awslogs-stream-prefix": "ecs"
         }
       },
@@ -67,6 +67,6 @@
       }
     }
   ],
-  "executionRoleArn": "arn:aws:iam::xxxxxxxxxxxx:role/ecsTaskExecutionRole",
-  "taskRoleArn": "arn:aws:iam::xxxxxxxxxxxx:role/ecsTaskRole"
+  "executionRoleArn": "arn:aws:iam::ACCOUNT:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::ACCOUNT:role/ecsTaskRole"
 }

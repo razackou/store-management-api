@@ -1,8 +1,6 @@
 # Store Management API
 
-> Enterprise-grade Store Management API designed to demonstrate backend architecture, data modeling, and business rule implementation using modern cloud-native principles.
-
-Enterprise-grade retail backend system designed to demonstrate enterprise cloud architecture patterns, architectural trade-off analysis (containers vs serverless), event-driven evolution strategy, and governance-aligned AWS deployment.
+Enterprise-grade Store Management API designed to demonstrate enterprise cloud architecture patterns, architectural trade-off analysis (containers vs serverless), event-driven evolution strategy, and governance-aligned AWS deployment.
 
 ---
 
@@ -32,9 +30,7 @@ Enterprise-grade retail backend system designed to demonstrate enterprise cloud 
 
 ## Introduction
 
-This project is an enterprise-grade retail backend system designed to demonstrate **cloud architecture decision-making, domain-driven design principles, and governance-ready deployment strategies** in an AWS enterprise context.
-
-> This project is an enterprise-grade Store Management API designed to showcase **backend architecture, business rules, and cloud-ready design**.
+This project is an enterprise-grade Store Management API designed to demonstrate **cloud architecture decision-making, domain-driven design principles, and governance-ready deployment strategies** in an AWS enterprise context.
 
 The application follows a data-driven approach inspired by the **MERISE methodology**, from Conceptual Data Model (MCD) to Logical Data Model (MLD), and finally implemented as a **RESTful API** using **FastAPI** and **PostgreSQL**.
 
@@ -521,7 +517,7 @@ cd store-management-api
 
 ```
 python -m venv venv
-source venv/bin/activate
+source venv/bin/activate (macOS/Linux) or venv\Scripts\activate (Windows)
 pip install -r requirements.txt
 
 cd backend
@@ -569,9 +565,9 @@ pytest --cov
 
 - Add authentication / Role-Based Access Control
 - Multi-store support
+- Integration with cloud managed database services (RDS or Aurora)
 - Reporting / analytics endpoints
 - Frontend SPA (React / Vue) consuming API
-- Integration with cloud managed database services (RDS, Cloud SQL)
 
 ## In case you clone the repo for future improvements
 
@@ -596,7 +592,7 @@ aws ecr create-repository --repository-name store-management-api --region us-eas
 aws secretsmanager create-secret --name store-management-api/db-url --secret-string "postgresql://..." --region us-east-1
 ```
 
-Update ecs/taskdef.json file by replacing:
+Update `ecs/taskdef.json` file by replacing:
 
 - PLACEHOLDER_IMAGE_URI → your ECR repo URI
 - REGION and ACCOUNT placeholders → your AWS details
@@ -615,5 +611,3 @@ You can now push to GitHub and watch the workflow run automatically!
 ## License
 
 This project is licensed under the MIT License.
-
-> Everything should be ok now, try to add the ci/cd pipeline for the deploy on aws
