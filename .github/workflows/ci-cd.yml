@@ -152,7 +152,7 @@ jobs:
           container-name: store-management-api
           image: ${{ steps.image-uri.outputs.image }}
 
-      - name: Deploy to ECS Fargate service
+      - name: Deploy to Amazon ECS Fargate service
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
@@ -162,8 +162,8 @@ jobs:
 
       - name: Notify deployment success
         if: success()
-        run: echo "Deployment to ECS completed successfully"
+        run: echo "Deployment to Amazon ECS completed successfully"
 
       - name: Notify deployment failure
         if: failure()
-        run: echo "Deployment to ECS failed"
+        run: echo "Deployment to Amazon ECS failed"
